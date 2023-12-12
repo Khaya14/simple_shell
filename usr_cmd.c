@@ -18,5 +18,6 @@ ssize_t usr_cmd(char *cmd, size_t n)
 		free(cmd);
 		return (-1);
 	}
+
 	return (num_char);
 }
