@@ -1,22 +1,37 @@
 #include "shell.h"
 
 /**
- * usr_cmd - receives a users input from the standard input
- * @cmd: string containing user input from terminal
- * @n: the number of characters in the input string
+ * usr_cmd - receives the user input from stdin
+ * @cmd: A character string received from stdin
+ * @n_ch: the number of charaters in string cmd
+ * @args: pointer to array of string tokens
  *
- * Return: Number of character read
+ * Return: void.
  */
-ssize_t usr_cmd(char *cmd, size_t n)
+void usr_cmd(char *cmd, size_t n_ch, char **args)
 {
-	ssize_t num_char;
+	char *token;
+	int i = 0;
 
-	num_char = getline(&cmd, &n, stdin);
-	if (num_char == -1)
+	if (args == NULL)
+	{
+		perror("argv");
+		exit(EXIT_FAILURE);
+	}
+	if (getline(&cmd, &n_ch, stdin) == -1)
 	{
 		perror("getline");
-		free(cmd);
-		return (-1);
+		exit(EXIT_FAILURE);
 	}
-	return (num_char);
+	else
+	{
+		token = strtok(cmd, " \n\t");
+		while (token != NULL)
+		{
+			args[i] = token;
+			token = strtok(NULL, " \n\t");
+			i++;
+		}
+		args[i] = NULL;
+	}
 }

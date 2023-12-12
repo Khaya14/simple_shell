@@ -6,9 +6,12 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <string.h>
 
-void prmpt();
-ssize_t usr_cmd(char *cmd, size_t n);
-void exec_cmd(char *cmd);
+extern char **environ;
+
+void prmpt(void);
+void usr_cmd(char *cmd, size_t n_ch, char **args);
+void exec_cmd(char **args);
 
 #endif

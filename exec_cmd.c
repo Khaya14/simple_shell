@@ -1,35 +1,31 @@
 #include "shell.h"
 
 /**
- * exec_cmd - creates the child process that executes
- * the user's command/input
- * @cmd: the user input
+ * exec_cmd - executes the users input
+ * @cmd: the character string to be executed
  *
  * Return: void
  */
-void exec_cmd(char *cmd)
+void exec_cmd(char **args)
 {
 	int status;
-	pid_t kind_pid;
-	char **array;
+	pid_t kind_pid = fork();
 
-	array = malloc(sizeof(char *) * 1024);
-	kind_pid = fork();
 	if (kind_pid == -1)
 	{
 		perror("fork");
 		exit(EXIT_FAILURE);
 	}
-	if (kind_pid == 0)
+	else if (kind_pid == 0)
 	{
-		array[0] = cmd;
-		array[1] = NULL;
-		if (execve(array[0], array, NULL) == -1)
+		if (execve(args[0], args, NULL) == -1)
 		{
-			perror("execve");
+			perror(args[0]);
 			exit(EXIT_FAILURE);
 		}
 	}
 	else
+	{
 		wait(&status);
+	}
 }
