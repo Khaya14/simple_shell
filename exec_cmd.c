@@ -25,7 +25,7 @@ int exec_cmd(char *cmd)
 
 	if (cnt > 0)
 	{
-		if(strcmp(tkn_arr[0], "exit") == 0)
+		if (strcmp(tkn_arr[0], "exit") == 0)
 			exit(EXIT_SUCCESS);
 		kind_pid = fork();
 
