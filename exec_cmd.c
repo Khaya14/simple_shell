@@ -4,28 +4,47 @@
  * exec_cmd - executes the users input
  * @cmd: the character string to be executed
  *
- * Return: void
+ * Return: 0 on success, else -1.
  */
-void exec_cmd(char **args)
+int exec_cmd(char *cmd)
 {
-	int status;
-	pid_t kind_pid = fork();
+	char **tkn_arr = malloc(sizeof(char *) * 1024);
+	char *tkn;
+	pid_t kind_pid;
+	int cnt, status;
 
-	if (kind_pid == -1)
+	if (tkn_arr == NULL)
+		return (-1);
+	tkn = strtok(cmd, " \n");
+	for (cnt = 0; tkn != NULL; cnt++)
 	{
-		perror("fork");
-		exit(EXIT_FAILURE);
+		tkn_arr[cnt] = tkn;
+		tkn = strtok(NULL, " \n");
 	}
-	else if (kind_pid == 0)
+	tkn_arr[cnt] = NULL;
+
+	if (cnt > 0)
 	{
-		if (execve(args[0], args, NULL) == -1)
+		if(strcmp(tkn_arr[0], "exit") == 0)
+			exit(EXIT_SUCCESS);
+		kind_pid = fork();
+
+		if (kind_pid == -1)
 		{
-			perror(args[0]);
-			exit(EXIT_FAILURE);
+			perror("fork");
+			return (-1);
 		}
+		else if (kind_pid == 0)
+		{
+			if (execve(tkn_arr[0], tkn_arr, NULL) == -1)
+			{
+				perror(tkn_arr[0]);
+				return (-1);
+			}
+		}
+		else
+			wait(&status);
 	}
-	else
-	{
-		wait(&status);
-	}
+	free(tkn_arr);
+	return (0);
 }

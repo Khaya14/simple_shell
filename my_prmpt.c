@@ -8,4 +8,5 @@
 void prmpt(void)
 {
 	printf("my_shell$ ");
+	fflush(stdout);
 }

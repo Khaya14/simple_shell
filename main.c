@@ -2,22 +2,13 @@
 
 /**
  * main - initiates a shell
+ * @argc: number of arguments passed to commandline
+ * @argv: array of argument strings
  *
  * Return: Always 0.
  */
-int main(void)
+int main(int argc, char *argv[])
 {
-	char *cmd = NULL;
-	size_t n_ch = 0;
-	char **args;
-
-	args = malloc(sizeof(char *) * 1024);
-	while (1)
-	{
-		prmpt();
-		usr_cmd(cmd, n_ch, args);
-		exec_cmd(args);
-	}
-	free(args);
+	usr_cmd(argc, argv);
 	return (0);
 }
