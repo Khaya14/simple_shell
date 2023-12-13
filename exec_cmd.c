@@ -1,35 +1,50 @@
 #include "shell.h"
 
 /**
- * exec_cmd - creates the child process that executes
- * the user's command/input
- * @cmd: the user input
+ * exec_cmd - executes the users input
+ * @cmd: the character string to be executed
  *
- * Return: void
+ * Return: 0 on success, else -1.
  */
-void exec_cmd(char *cmd)
+int exec_cmd(char *cmd)
 {
-	int status;
+	char **tkn_arr = malloc(sizeof(char *) * 1024);
+	char *tkn;
 	pid_t kind_pid;
-	char **array;
+	int cnt, status;
 
-	array = malloc(sizeof(char *) * 1024);
-	kind_pid = fork();
-	if (kind_pid == -1)
+	if (tkn_arr == NULL)
+		return (-1);
+	tkn = strtok(cmd, " \n");
+	for (cnt = 0; tkn != NULL; cnt++)
 	{
-		perror("fork");
-		exit(EXIT_FAILURE);
+		tkn_arr[cnt] = tkn;
+		tkn = strtok(NULL, " \n");
 	}
-	if (kind_pid == 0)
+	tkn_arr[cnt] = NULL;
+
+	if (cnt > 0)
 	{
-		array[0] = cmd;
-		array[1] = NULL;
-		if (execve(array[0], array, NULL) == -1)
+		if(strcmp(tkn_arr[0], "exit") == 0)
+			exit(EXIT_SUCCESS);
+		kind_pid = fork();
+
+		if (kind_pid == -1)
 		{
-			perror("execve");
-			exit(EXIT_FAILURE);
+			perror("fork");
+			return (-1);
 		}
+		else if (kind_pid == 0)
+		{
+			if (execve(tkn_arr[0], tkn_arr, NULL) == -1)
+			{
+				perror(tkn_arr[0]);
+				return (-1);
+			}
+		}
+		else
+			wait(&status);
 	}
-	else
-		wait(&status);
+	free(tkn_arr);
+	return (0);
 }
