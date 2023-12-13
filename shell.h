@@ -15,5 +15,6 @@ void prmpt(void);
 void usr_cmd(int argc, char *argv[]);
 int exec_cmd(char *cmd);
 int _strlen(char *str);
+void init_sh(void);
 
 #endif
