@@ -1,18 +1,18 @@
 #include "shell.h"
 
 /**
- * exec_cmd - executes the users input
- * @cmd: the character string to be executed
- *
- * Return: 0 on success, else -1.
- */
+ *  * exec_cmd - executes the users input
+ *   * @cmd: the character string to be executed
+ *    *
+ *     * Return: 0 on success, else -1.
+ *      */
 int exec_cmd(char *cmd)
 {
 	char **tkn_arr = malloc(sizeof(char *) * 1024);
 	char *tkn;
 	pid_t kind_pid;
 	int cnt, status;
-
+	
 	if (tkn_arr == NULL)
 		return (-1);
 	tkn = strtok(cmd, " \n");
@@ -22,13 +22,13 @@ int exec_cmd(char *cmd)
 		tkn = strtok(NULL, " \n");
 	}
 	tkn_arr[cnt] = NULL;
-
+	
 	if (cnt > 0)
 	{
 		if(strcmp(tkn_arr[0], "exit") == 0)
 			exit(EXIT_SUCCESS);
 		kind_pid = fork();
-
+		
 		if (kind_pid == -1)
 		{
 			perror("fork");

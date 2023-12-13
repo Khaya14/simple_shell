@@ -10,7 +10,7 @@ void init_sh(void)
 {
 	char *cmd = NULL;
 	size_t _buf = 0;
-	
+
 	if (isatty(fileno(stdin)))
 	{
 		while (1)
@@ -63,7 +63,7 @@ void usr_cmd(int argc, char *argv[])
 	if (argc > 1)
 	{
 		int arg_cnt;
-		
+
 		for (arg_cnt = 1; arg_cnt < argc; arg_cnt++)
 		{
 			if (exec_cmd(argv[arg_cnt]) != 0)
