@@ -56,7 +56,7 @@ void path_author(char **fpath, char **arr_tkns, char *fname, int i_tkn)
 char *_wh(char *fname)
 {
 	struct stat index;
-	char *var_p, *dlm, fpath;
+	char *var_p, *dlm, *fpath;
 	char **arr_tkns;
 	int i_tkn, is_fpath;
 

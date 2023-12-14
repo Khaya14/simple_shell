@@ -15,7 +15,7 @@ int _kind(char *cmd, char **arr_tkns)
 	pid_t kind;
 	int status, err_excv;
 
-	pid = fork();
+	kind = fork();
 	if (kind == -1)
 	{
 		perror("Error: Child unable to create. _kind()");
@@ -23,7 +23,7 @@ int _kind(char *cmd, char **arr_tkns)
 	}
 	if (kind == 0)
 	{
-		err_excv ==  execve(cmd, arr_tkns, _env);
+		err_excv = execve(cmd, arr_tkns, __environ);
 		if (err_excv == -1)
 		{
 			perror("excv: ");

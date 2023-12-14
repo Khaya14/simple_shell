@@ -60,7 +60,7 @@ char **arr_tkn(char *usr_inp, char *dlm)
 			perror("Error: malloc failure, arr_tkns");
 			return (NULL);
 		}
-		strcpy(arr_tkn[i_tkn], tkn);
+		strcpy(arr_tkns[i_tkn], tkn);
 		tkn = strtok(NULL, dlm);
 	}
 	free(cp_inp);

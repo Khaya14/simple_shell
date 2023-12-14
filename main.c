@@ -17,17 +17,22 @@ int main(__attribute((unused)) int argc,
 		__attribute((unused)) char **argv,
 		__attribute((unused)) char **envp)
 {
-	char *usr_inp, *dlm, *wh_path;
-	size_t nm_ch;
+	char *usr_inp, *dlm;
+	char *wh_path;
+	size_t nm_ch, b_allc;
 	int status;
 	char **arr_tkns;
 
 
+	dlm = " \n\t\r";
 	usr_inp = NULL;
 	nm_ch = 0;
+	b_allc = 0;
+	status = 0;
 
 	while (1)
 	{
+		b_allc++;
 		prmpt();
 		usrcmd(&usr_inp, &nm_ch, status);
 		arr_tkns = arr_tkn(usr_inp, dlm);
@@ -35,13 +40,25 @@ int main(__attribute((unused)) int argc,
 			status = 0;
 		else
 		{
-			wh_path = _wh(arr_tkns);
-			if (wh_path != NULL)
-				status = _kind(wh_path, arr_tkns);
+			if (bltn_check(arr_tkns))
+			{
+				if (bltn_exec(arr_tkns) == _BUF_SIZE)
+				{
+					mem_free(arr_tkns, usr_inp);
+					exit(status);
+				}
+			}
 			else
+			{
+				wh_path = _wh(arr_tkns[0]);
+				if (wh_path != NULL)
+					status = _kind(wh_path, arr_tkns);
+				else
 				perror("Error: ");
+			}
 		}
+		mem_free(arr_tkns, usr_inp);
+		usr_inp = NULL;
 	}
-	free(usr_inp);
 	return (0);
 }
