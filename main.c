@@ -13,8 +13,8 @@
  * 
  * Return: Always 0.
  */
-int main(__attribute((unused)) int ac,
-		__attribute((unused)) char **arvs,
+int main(__attribute((unused)) int argc,
+		__attribute((unused)) char **argv,
 		__attribute((unused)) char **envp)
 {
 	char *usr_inpt;
@@ -28,7 +28,7 @@ int main(__attribute((unused)) int ac,
 	while (1)
 	{
 		prmpt();
-		usercmd(&usr_inpt, &nm_ch, status);
+		usrcmd(&usr_inpt, &nm_ch, status);
 	}
 
 	return (0);

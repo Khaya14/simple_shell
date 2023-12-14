@@ -12,5 +12,6 @@
 extern char **environ;
 
 void prmpt(void);
+ssize_t usrcmd(char **i, size_t *byt_all, int status);
 
 #endif
