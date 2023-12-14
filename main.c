@@ -17,5 +17,5 @@ int main(__attribute((unused)) int ac,
 		__attribute((unused)) char **arvs,
 		__attribute((unused)) char **envp)
 {
-	Return (0);
+	return (0);
 }
