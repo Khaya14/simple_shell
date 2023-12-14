@@ -17,5 +17,19 @@ int main(__attribute((unused)) int ac,
 		__attribute((unused)) char **arvs,
 		__attribute((unused)) char **envp)
 {
+	char *usr_inpt;
+	size_t nm_ch;
+	int status;
+
+
+	usr_inpt = NULL;
+	nm_ch = 0;
+
+	while (1)
+	{
+		prmpt();
+		usercmd(&usr_inpt, &nm_ch, status);
+	}
+
 	return (0);
 }
