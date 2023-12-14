@@ -17,9 +17,10 @@ int main(__attribute((unused)) int argc,
 		__attribute((unused)) char **argv,
 		__attribute((unused)) char **envp)
 {
-	char *usr_inpt;
+	char *usr_inpt, *dlm;
 	size_t nm_ch;
 	int status;
+	char **arr_tkns;
 
 
 	usr_inpt = NULL;
@@ -29,6 +30,13 @@ int main(__attribute((unused)) int argc,
 	{
 		prmpt();
 		usrcmd(&usr_inpt, &nm_ch, status);
+		arr_tkns = arr_tkn(usr_inpt, dlm);
+		if (arr_tkns == NULL)
+			status = 0;
+		else
+		{
+
+		}
 	}
 
 	return (0);
