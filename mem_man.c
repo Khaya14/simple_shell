@@ -8,7 +8,7 @@
  *
  * Return: the pointer to allocated memory
  */
-char *ch_mllc(char **_buf, size_t mllc_sz, char msg)
+char *ch_mllc(char **_buf, size_t mllc_sz, char *msg)
 {
 	*_buf = (char *)malloc(mllc_sz * sizeof(char));
 	if (_buf == NULL)
