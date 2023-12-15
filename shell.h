@@ -11,7 +11,6 @@
 #include <string.h>
 #define _BUF_SIZE 1080
 
-extern char **environ;
 
 struct bltn_cmd
 {
@@ -47,8 +46,8 @@ ssize_t _get_line(char **lnptr, size_t *sz, FILE *input_stream);
 /* builtin commands & environ */
 int env_bltn(__attribute((unused)) char **arr_tkn);
 int bltn_exec(char **arr_tkns);
-int bltn_check(char **arr_tkns);
 int bltn_exit(char **arr_tkns);
+int bltn_check(char **arr_tkns);
 
 /* resource codes */
 int err_msg(char **arr, char **arr_tkns, size_t b_allc);
