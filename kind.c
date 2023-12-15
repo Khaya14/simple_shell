@@ -23,14 +23,6 @@ int _kind(char *cmd, char **arr_tkns)
 	}
 	if (kind == 0)
 	{
-		if (strcmp(cmd, "/bin/ls") || strcmp(cmd, "ls"))
-		{
-			if (setenv("LC_COLLATE", "en_US.utf8", 1) != 0)
-			{
-				perror("Error setting LC_COLLATE");
-				return (-1);
-			}
-		}
 		err_excv = execve(cmd, arr_tkns, __environ);
 		if (err_excv == -1)
 		{

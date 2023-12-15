@@ -29,7 +29,6 @@ int main(__attribute((unused)) int argc,
 	while (1)
 	{
 		b_allc++;
-		prmpt();
 		usrcmd(&usr_inp, &nm_ch, status);
 		arr_tkns = arr_tkn(usr_inp, dlm);
 		if (arr_tkns == NULL)

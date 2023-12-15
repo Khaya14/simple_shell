@@ -11,7 +11,6 @@
 #include <string.h>
 #define _BUF_SIZE 1080
 
-
 struct bltn_cmd
 {
 	char *file;
