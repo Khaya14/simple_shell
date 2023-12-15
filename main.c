@@ -23,7 +23,7 @@ int main(__attribute((unused)) int argc,
 	char **arr_tkns;
 
 	signal(SIGINT, cigint_);
-	dlm = " \n";
+	dlm = " \n\t\r";
 	usr_inp = NULL;
 	nm_ch = b_allc = 0;
 	while (1)
