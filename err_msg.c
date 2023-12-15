@@ -24,7 +24,7 @@ int err_msg(char **arr, char **arr_tkns, size_t b_allc)
 	strcat(err_str, b_allc_str);
 	strcat(err_str, ": ");
 	strcat(err_str, arr_tkns[0]);
-	strcat(err_str, "not found\n");
+	strcat(err_str, ": not found\n");
 	strcat(err_str, "\0");
 
 	write(STDERR_FILENO, err_str, strlen(err_str));
