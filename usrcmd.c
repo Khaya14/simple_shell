@@ -14,7 +14,7 @@ ssize_t usrcmd(char **inp, size_t *byt_all, int status)
 {
 	ssize_t n_ch;
 
-	n_ch = _get_line(inp, byt_all, stdin);
+	n_ch = getline(inp, byt_all, stdin);
 	if (n_ch == -1)
 	{
 		free(*inp);
