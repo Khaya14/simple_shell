@@ -1,4 +1,4 @@
-#include "main.h"
+#include "shell.h"
 
 /**
  * cigint_ - signal handler within the code.

@@ -24,12 +24,16 @@ void prmpt(void);
 ssize_t usrcmd(char **i, size_t *byt_all, int status);
 int _kind(char *cmd, char **arr_tkns);
 void cigint_(int cig);
+void cigint_(int cig);
 
-/* arrays & tokens */
+/* istrings, arrays & tokens */
 size_t nm_tkn(char *usr_inpt, char *dlm);
 char **arr_tkn(char *usr_inpt, char *dlm);
 char *_gt_envv(const char *file);
 char *_wh(char *fname);
+void _s_rev(char *_s);
+char * _i_t_oa(size_t cmd_nm);
+int d_count(size_t cmd_nm);
 
 /* memory management */
 char *ch_mllc(char **_buf, size_t mllc_sz, char *msg);
@@ -42,5 +46,8 @@ int env_bltn(__attribute((unused)) char **arr_tkn);
 int bltn_exec(char **arr_tkns);
 int bltn_check(char **arr_tkns);
 int bltn_exit(char **arr_tkns);
+
+/* resource codes */
+int err_msg(char **arr, char **arr_tkns, size_t b_allc);
 
 #endif
