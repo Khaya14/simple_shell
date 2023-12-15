@@ -22,6 +22,7 @@ int main(__attribute((unused)) int argc,
 	int status = 0;
 	char **arr_tkns;
 
+	signal(SIGINT, cigint_);
 	dlm = " \n\t\r";
 	usr_inp = NULL;
 	nm_ch = b_allc = 0;
@@ -49,7 +50,7 @@ int main(__attribute((unused)) int argc,
 				if (wh_path != NULL)
 					status = _kind(wh_path, arr_tkns);
 				else
-				perror("Error: ");
+					status = err_msg(argv, arr_tkns, b_allc);
 			}
 		}
 		mem_free(arr_tkns, usr_inp);

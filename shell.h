@@ -23,6 +23,7 @@ struct bltn_cmd
 void prmpt(void);
 ssize_t usrcmd(char **i, size_t *byt_all, int status);
 int _kind(char *cmd, char **arr_tkns);
+void cigint_(int cig);
 
 /* arrays & tokens */
 size_t nm_tkn(char *usr_inpt, char *dlm);
