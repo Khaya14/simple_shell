@@ -31,7 +31,7 @@ char **arr_tkn(char *usr_inpt, char *dlm);
 char *_gt_envv(const char *file);
 char *_wh(char *fname);
 void _s_rev(char *_s);
-char * _i_t_oa(size_t cmd_nm);
+char *_i_t_oa(size_t cmd_nm);
 int d_count(size_t cmd_nm);
 
 /* memory management */
