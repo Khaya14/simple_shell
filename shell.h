@@ -40,6 +40,9 @@ char *ch_mllc(char **_buf, size_t mllc_sz, char *msg);
 char **arr_mllc(char **arr, size_t mllc_sz, char *msg);
 void _wh_free(char **var_p, char **arr_tkns);
 void mem_free(char **arr_tkns, char *inp);
+void *r_alloc(void *mem_ptr, unsigned int prev_sz, unsigned int nxt_sz);
+void create_lnptr(char **lnptr, size_t *sz, size_t szb, char *_buf);
+ssize_t _get_line(char **lnptr, size_t *sz, FILE *input_stream);
 
 /* builtin commands & environ */
 int env_bltn(__attribute((unused)) char **arr_tkn);
