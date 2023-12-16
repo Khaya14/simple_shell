@@ -1,59 +1,55 @@
 #include "shell.h"
 
 /**
- * main - runs a command line interpreter on UNIX
- * The function displays a prompt and then takes a users command
- * The command line always ends on a new line
- * It can handle command lines with arguments
- * Handles the path
- * it also is able to handle certain builtin functions
+ * main - this function runs a UNIX command line interpreter
  * @argc: counts the number of arguments
- * @argv: pointer to an array of arguments stored
- * @envp: pointer to the environ variable
+ * @argv: A pointer to an array of arguments
  *
- * Return: Always 0.
+ * Return: value of the last command that was executed
  */
-int main(__attribute((unused)) int argc,
-		__attribute((unused)) char **argv,
-		__attribute((unused)) char **envp)
+int main(int argc, char *argv[])
 {
-	char *usr_inp, *dlm, *wh_path;
-	size_t nm_ch, b_allc;
-	int status = 0;
-	char **arr_tkns;
+	int result = 0, result_n;
+	int *exec_result = &result_n;
+	char *my_prmpt = "$ ", *nl = "\n";
 
-	signal(SIGINT, cigint_);
-	dlm = " \n\t\r";
-	usr_inp = NULL;
-	nm_ch = b_allc = 0;
+	cmd = argv[0];
+	cmd_log = 1;
+	signal(SIGINT, handles_sig);
+
+	*exec_result = 0;
+	environ = cp_env();
+	if (!environ)
+		exit(-100);
+
+	if (argc != 1)
+	{
+		result = exec_file(argv[1], exec_result);
+		env_free();
+		return (*exec_result);
+	}
+
+	if (!isatty(STDIN_FILENO))
+	{
+		while (result != _EOF && result != _EXIT)
+			result = args_handlr(exec_result);
+		env_free();
+		return (*exec_result);
+	}
+
 	while (1)
 	{
-		b_allc++;
-		usrcmd(&usr_inp, &nm_ch, status);
-		arr_tkns = arr_tkn(usr_inp, dlm);
-		if (arr_tkns == NULL)
-			status = 0;
-		else
+		write(STDOUT_FILENO, my_prmpt, 2);
+		result = args_handlr(exec_result);
+		if (result == _EOF || result == _EXIT)
 		{
-			if (bltn_check(arr_tkns))
-			{
-				if (bltn_exec(arr_tkns) == _BUF_SIZE)
-				{
-					mem_free(arr_tkns, usr_inp);
-					exit(status);
-				}
-			}
-			else
-			{
-				wh_path = _wh(arr_tkns[0]);
-				if (wh_path != NULL)
-					status = _kind(wh_path, arr_tkns);
-				else
-					status = err_msg(argv, arr_tkns, b_allc);
-			}
+			if (result == _EOF)
+				write(STDOUT_FILENO, nl, 1);
+			env_free();
+			exit(*exec_result);
 		}
-		mem_free(arr_tkns, usr_inp);
-		usr_inp = NULL;
 	}
-	return (0);
+
+	env_free();
+	return (*exec_result);
 }
